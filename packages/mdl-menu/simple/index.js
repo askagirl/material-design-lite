@@ -82,7 +82,19 @@ export class MDLSimpleMenu extends MDLComponent {
       notifySelected: evtData => this.emit('MDLSimpleMenu:selected', {
         index: evtData.index,
         item: this.items[evtData.index]
-      })
+      }),
+      saveFocus: () => {
+        this.previousFocus_ = document.activeElement;
+      },
+      restoreFocus: () => {
+        if (this.previousFocus_) {
+          this.previousFocus_.focus();
+        }
+      },
+      isMenuFocused: () => document.activeElement === this.root_,
+      focusMenu: () => this.root_.focus(),
+      getFocusedItemIndex: () => this.items.indexOf(document.activeElement),
+      focusItemAtIndex: index => this.items[index].focus()
     });
   }
 
